@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -10,6 +11,7 @@ using System.Windows.Forms;
 using Telegram.Bot;
 using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
 
 namespace RPAbot
 {
@@ -33,6 +35,8 @@ namespace RPAbot
             timer = new System.Timers.Timer();
             this.parameters = parameters;
             client = new TelegramBotClient(parameters.token);
+            //следующая строка обязательная для инициализации соединения бота
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             timer.Elapsed += Timer_Elapsed;
             timer.Interval = TimeSpan.FromSeconds(parameters.interval).TotalMilliseconds;
         }
@@ -44,7 +48,7 @@ namespace RPAbot
              
             var me = await client.GetMeAsync();
             WorkData.BotId = me.Id;
-            client.StartReceiving();
+            //client.StartReceiving();
             OnStartTimer?.Invoke(null);
         }
 
@@ -57,11 +61,11 @@ namespace RPAbot
             OnDoWork?.Invoke();
         }
 
-        private async Task SendMessageHtml()
+        private async void SendMessageHtml()
         {
             try
             {
-                await client?.SendTextMessageAsync("-443484708", "Hello from winbot");
+                await client?.SendTextMessageAsync(new ChatId(parameters.chatrpa), "<b>Hello from winbot</b>",ParseMode.Html);
             }catch(Exception err)
             {
                 Debug.WriteLine(err.Message);
@@ -90,7 +94,7 @@ namespace RPAbot
 
         public void Stop()
         {
-            client.StopReceiving();
+            //client.StopReceiving();
             timer.Stop();
             OnStopTimer?.Invoke(null);
         }
