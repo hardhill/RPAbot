@@ -34,6 +34,8 @@ namespace RPAbot
             get {
                 return settings.interval;
             } }
+        public string token { get { return settings.token; } }
+        public int chatrpa { get { return Convert.ToInt32(settings.chatrpa); } }
         public Parameters()
         {
             this.settings = RPAbot.Properties.Settings.Default;

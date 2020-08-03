@@ -32,6 +32,7 @@
             this.bStop = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblBotId = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +59,7 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblBotId,
             this.lblStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 259);
             this.statusStrip1.Name = "statusStrip1";
@@ -69,6 +71,11 @@
             // 
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(0, 17);
+            // 
+            // lblBotId
+            // 
+            this.lblBotId.Name = "lblBotId";
+            this.lblBotId.Size = new System.Drawing.Size(0, 17);
             // 
             // Form1
             // 
@@ -96,6 +103,7 @@
         private System.Windows.Forms.Button bStop;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
+        private System.Windows.Forms.ToolStripStatusLabel lblBotId;
     }
 }
 

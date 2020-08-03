@@ -8,5 +8,11 @@
     <Setting Name="interval" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="token" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1333442954:AAEA2Zn5jkvRc3ag6Cv8qdJyX2Bo8G3Fb68</Value>
+    </Setting>
+    <Setting Name="chatrpa" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-443484708</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -30,14 +30,15 @@ namespace RPAbot
 
         private void BotShell_OnStartTimer(object e)
         {
-            WorkData workData = (WorkData)e;
-            lblStatus.Text = workData.WorkCounter.ToString();
+           
+            lblStatus.Text = WorkData.WorkCounter.ToString();
         }
 
-        private void BotShell_OnDoWork(object eventArgs)
+        private void BotShell_OnDoWork()
         {
-            WorkData workData = (WorkData)eventArgs;
-            lblStatus.Text = workData.WorkCounter.ToString();
+            lblBotId.Text = $"Бот id: {WorkData.BotId}";
+            lblStatus.Text = $"Работа: {WorkData.WorkCounter.ToString()}";
+            
         }
 
         private void bStart_Click(object sender, EventArgs e)

@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Timers;
+using System.Windows.Forms;
+using Telegram.Bot;
+using Telegram.Bot.Requests;
+using Telegram.Bot.Types;
 
 namespace RPAbot
 {
     class BotShell
     {
-        private Timer timer;
+        private System.Timers.Timer timer;
         private Parameters parameters;
-        private WorkData workData;
-        public delegate void DoWork(object eventArgs);
+        
+        private ObservableCollection<string> htmls;
+        private TelegramBotClient client;
+        
+        public delegate void DoWork();
         public event DoWork OnDoWork;
         public delegate void StartTimer(object e);
         public event StartTimer OnStartTimer;
@@ -19,25 +29,43 @@ namespace RPAbot
         public event StartTimer OnStopTimer;
         public BotShell(Parameters parameters)
         {
-
-            timer = new Timer();
+            htmls = new ObservableCollection<string>();
+            timer = new System.Timers.Timer();
             this.parameters = parameters;
-            workData = new WorkData();
+            client = new TelegramBotClient(parameters.token);
             timer.Elapsed += Timer_Elapsed;
             timer.Interval = TimeSpan.FromSeconds(parameters.interval).TotalMilliseconds;
         }
-        public void Start()
+        public async Task Start()
         {
-            workData.Reset();
+            WorkData.Reset();
+            htmls.Clear();
             timer.Start();
-            OnStartTimer?.Invoke(workData);
-
+             
+            var me = await client.GetMeAsync();
+            WorkData.BotId = me.Id;
+            client.StartReceiving();
+            OnStartTimer?.Invoke(null);
         }
+
+        
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             ReadDataHtml();
-            OnDoWork?.Invoke(workData);
+            SendMessageHtml();
+            OnDoWork?.Invoke();
+        }
+
+        private async Task SendMessageHtml()
+        {
+            try
+            {
+                await client?.SendTextMessageAsync("-443484708", "Hello from winbot");
+            }catch(Exception err)
+            {
+                Debug.WriteLine(err.Message);
+            }
         }
 
         private void ReadDataHtml()
@@ -48,6 +76,13 @@ namespace RPAbot
                 using (StreamReader sr = new StreamReader(ff, Encoding.UTF8))
                 {
                     string html = sr.ReadToEnd();
+                    htmls.Add(html);
+                }
+                try
+                {
+                    System.IO.File.Delete(ff);
+                }catch(Exception er)
+                {
 
                 }
             }
@@ -55,24 +90,25 @@ namespace RPAbot
 
         public void Stop()
         {
+            client.StopReceiving();
             timer.Stop();
-            OnStopTimer?.Invoke(workData);
+            OnStopTimer?.Invoke(null);
         }
 
 
     }
 
-    internal class WorkData
+    internal static class WorkData
     {
-        private int workCounter;
-        public int WorkCounter { get { return workCounter++; } }
-        public WorkData()
+        private static int workCounter = 0;
+
+        public static int WorkCounter => workCounter++;
+        public static int BotId {get;set;}
+        public static void Reset()
         {
             workCounter = 0;
+            BotId = 0;
         }
-        public void Reset()
-        {
-            workCounter = 0;
-        }
+
     }
 }
