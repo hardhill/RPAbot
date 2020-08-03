@@ -13,7 +13,8 @@ namespace SimpleBot
         static async Task Main(string[] args)
         {
             TelegramBotClient bot = new TelegramBotClient("1333442954:AAEA2Zn5jkvRc3ag6Cv8qdJyX2Bo8G3Fb68");
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls|SecurityProtocolType.Ssl3;
             var me = await bot.GetMeAsync();
             Console.WriteLine(me.Username);
             Console.ReadLine();

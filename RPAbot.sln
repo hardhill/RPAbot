@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPAbot", "RPAbot\RPAbot.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBot", "SimpleBot\SimpleBot.csproj", "{DABEB5EB-AA11-45AB-B765-CB880222176D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherBot", "OtherBot\OtherBot.csproj", "{66555595-34F8-4F6C-85BC-D97392A54D82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DABEB5EB-AA11-45AB-B765-CB880222176D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DABEB5EB-AA11-45AB-B765-CB880222176D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DABEB5EB-AA11-45AB-B765-CB880222176D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66555595-34F8-4F6C-85BC-D97392A54D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66555595-34F8-4F6C-85BC-D97392A54D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66555595-34F8-4F6C-85BC-D97392A54D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66555595-34F8-4F6C-85BC-D97392A54D82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
